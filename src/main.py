@@ -1,5 +1,8 @@
 import re
 from huggingface_hub import InferenceClient
+import random
+import time
+import gradio as gr
 
 client = InferenceClient("mistralai/Mixtral-8x7B-Instruct-v0.1")
 
@@ -32,3 +35,21 @@ def generate_translation(prompt):
     return ''.join(filtered_output).replace(" ", "").replace("\n", "")
 
 
+
+with gr.Blocks() as demo:
+    chatbot = gr.Chatbot()
+    msg = gr.Textbox()
+    clear = gr.ClearButton([msg, chatbot])
+
+    def respond(message, chat_history):
+        bot_message = generate_translation
+        chat_history.append((message, bot_message))
+        time.sleep(2)
+        return "", chat_history
+
+    msg.submit(respond, [msg, chatbot], [msg, chatbot])
+
+if __name__ == "__main__":
+    demo.launch()
+
+	
