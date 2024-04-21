@@ -32,35 +32,11 @@ def generate_translation(prompt):
     return ''.join(filtered_output).replace(" ", "").replace("\n", "")
 
 
-system_instructions_emoji_input = """<s> [INST] You will be provided with emojis, and your task is to create a short story from it. DO NOT USE ANY EMOJIS. Do your best with text only. Translate this emojis: """
-
-
-def generate_emoji_translation(prompt):
-    generate_kwargs = dict(
-        temperature=0.5,
-        max_new_tokens=1024,
-        top_p=0.95,
-        repetition_penalty=1.0,
-        do_sample=True,
-        seed=42,
-    )
-
-    formatted_prompt = system_instructions_emoji_input + prompt + "[/INST]"
-    stream = client.text_generation(
-        formatted_prompt, **generate_kwargs, stream=True, details=True, return_full_text=False)
-    output = ""
-
-    for response in stream:
-        output += response.token.text
-    yield output.rsplit("<", 1)[0]
-
-    return output.rsplit("<", 1)[0]
-
 
 with gr.Blocks() as demo:
     gr.HTML("""
 <center><h1>Emoji Translator 🤗😻</h1>
-<h3>Translate any text into emojis, and vice versa!</h3>
+<h3>Translate any text into emojis!</h3>
 </center>
 """)
 
@@ -74,17 +50,6 @@ with gr.Blocks() as demo:
         translate_btn = gr.Button("Translate 🚀")
         translate_btn.click(fn=generate_translation, inputs=text_uesr_input,
                             outputs=output, api_name="translate_text")
-
-    gr.Markdown("""
-# Emoji to Text 😻➡️📖
-""")
-    with gr.Row():
-        emoji_user_input = gr.Textbox(label="Enter emojis 🤗")
-        output = gr.Textbox(label="Translation")
-    with gr.Row():
-        translate_btn = gr.Button("Translate 🚀")
-        translate_btn.click(fn=generate_emoji_translation, inputs=emoji_user_input,
-                            outputs=output, api_name="translate_emojis")
 
 if __name__ == "__main__":
     demo.launch(show_api=False)

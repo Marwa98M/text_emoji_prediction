@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r src/requirements.txt
 
 # Run train.py when the container launches
 CMD ["python", "src/main.py"]
