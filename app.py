@@ -3,14 +3,14 @@ from src.main import generate_translation
 
 with gr.Blocks() as demo:
     gr.HTML("""
-<center><h1>Emoji Translator 🤗😻</h1>
-<h3>Translate any text into emojis!</h3>
-</center>
-""")
+        <center><h1>Emoji Translator 🤗😻</h1>
+        <h3>Translate any text into emojis!</h3>
+        </center>
+    """)
 
     gr.Markdown("""
-# Text to Emoji 📖➡️😻
-""")
+        # Text to Emoji 📖➡️😻
+    """)
     with gr.Row():
         text_uesr_input = gr.Textbox(label="Enter text 📚")
         output = gr.Textbox(label="Translation")
@@ -21,5 +21,9 @@ with gr.Blocks() as demo:
 
 if __name__ == "__main__":
     demo.launch(show_api=True)
-    
+
+
+
+
+
 
