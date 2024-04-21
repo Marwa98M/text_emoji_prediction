@@ -1,10 +1,10 @@
 import re
-import gradio as gr
 from huggingface_hub import InferenceClient
 
 client = InferenceClient("mistralai/Mixtral-8x7B-Instruct-v0.1")
 
 system_instructions = """<s> [INST] You will be provided with text, and your task is to translate it into emojis. DO NOT USE ANY REGULAR TEXT. Do your best with emojis only. Translate this text: """
+
 
 
 def generate_translation(prompt):
@@ -32,24 +32,3 @@ def generate_translation(prompt):
     return ''.join(filtered_output).replace(" ", "").replace("\n", "")
 
 
-
-with gr.Blocks() as demo:
-    gr.HTML("""
-<center><h1>Emoji Translator 🤗😻</h1>
-<h3>Translate any text into emojis!</h3>
-</center>
-""")
-
-    gr.Markdown("""
-# Text to Emoji 📖➡️😻
-""")
-    with gr.Row():
-        text_uesr_input = gr.Textbox(label="Enter text 📚")
-        output = gr.Textbox(label="Translation")
-    with gr.Row():
-        translate_btn = gr.Button("Translate 🚀")
-        translate_btn.click(fn=generate_translation, inputs=text_uesr_input,
-                            outputs=output, api_name="translate_text")
-
-if __name__ == "__main__":
-    demo.launch(show_api=False)
