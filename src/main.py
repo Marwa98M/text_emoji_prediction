@@ -8,8 +8,6 @@ client = InferenceClient("mistralai/Mixtral-8x7B-Instruct-v0.1")
 
 system_instructions = """<s> [INST] You will be provided with text, and your task is to translate it into emojis. DO NOT USE ANY REGULAR TEXT. Do your best with emojis only. Translate this text: """
 
-
-
 def generate_translation(prompt):
     generate_kwargs = dict(
         temperature=0.5,
@@ -37,19 +35,37 @@ def generate_translation(prompt):
 
 
 with gr.Blocks() as demo:
+    
+    gr.HTML("""
+        <center><h1>Emoji Translator 🤗😻</h1>
+        <h3>Translate any text into emojis!</h3>
+        </center>
+    """)
+    
     chatbot = gr.Chatbot()
-    msg = gr.Textbox()
+    msg = gr.Textbox(label="Enter text 📚") 
+
+
+
+    # def respond(message, chat_history):
+    #     bot_message = generate_translation(msg) 
+    #     chat_history.append((message, bot_message))
+    #     time.sleep(2)
+    #     return "", chat_history
+
+
+
+    with gr.Row():
+        translate_btn = gr.Button("Translate 🚀")
+        translate_btn.click(fn=generate_translation, inputs=msg,
+                            outputs=chatbot)
     clear = gr.ClearButton([msg, chatbot])
 
-    def respond(message, chat_history):
-        bot_message = generate_translation
-        chat_history.append((message, bot_message))
-        time.sleep(2)
-        return "", chat_history
 
-    msg.submit(respond, [msg, chatbot], [msg, chatbot])
+
+   # msg.submit(respond, [msg, chatbot], [msg, chatbot])
 
 if __name__ == "__main__":
     demo.launch()
 
-	
+
