@@ -32,31 +32,3 @@ def generate_translation(prompt):
 
     return ''.join(filtered_output).replace(" ", "").replace("\n", "")
 
-# with gr.Blocks() as demo:
-#     gr.HTML("""
-#         <center><h1>Emoji Translator 🤗😻</h1>
-#         <h3>Translate any text into emojis!</h3>
-#         </center>
-#     """)
-    
-#     chatbot = gr.Chatbot([]) 
-#     msg = gr.Textbox(label="Enter text 📚") 
-
-#     # def respond(message, chat_history):
-#     #     bot_message = generate_translation(msg) 
-#     #     chat_history.append((message, bot_message))
-#     #     time.sleep(2)
-#     #     return "", chat_history
-
-#     with gr.Row():
-#         translate_btn = gr.Button("Translate 🚀")
-#         translate_btn.click(fn=generate_translation, inputs=msg,
-#                             outputs=chatbot)
-    
-#     clear = gr.ClearButton([msg, chatbot])
-
-#    # msg.submit(respond, [msg, chatbot], [msg, chatbot])
-
-# if __name__ == "__main__":
-#     demo.launch()
-
