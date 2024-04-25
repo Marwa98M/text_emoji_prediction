@@ -1,3 +1,7 @@
+# define project metadata and dependencies, 
+# and to specify how the project should be packaged 
+# and distributed.
+
 from setuptools import setup, find_packages
 
 # Read the contents of requirements.txt
